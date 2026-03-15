@@ -516,8 +516,48 @@
       margin: 0.6rem auto 0;
     }
 
-    /* ── FOOTER ── */
-    footer {
+    /* ── SHARE BUTTONS ── */
+    .share-section {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1.5px solid var(--teal-xlight);
+    }
+    .share-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--stone);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+    .share-btns {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .share-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      border-radius: 50px;
+      border: none;
+      font-family: 'Assistant', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      white-space: nowrap;
+    }
+    .share-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); opacity: 0.92; }
+    .share-btn:active { transform: scale(0.96); }
+    .share-btn.whatsapp { background: #25D366; color: white; }
+    .share-btn.telegram { background: #2AABEE; color: white; }
+    .share-btn.email    { background: var(--teal-xlight); color: var(--teal-dark); border: 1.5px solid var(--stone-light); }
+    .share-btn.print    { background: #f2f2f2; color: var(--charcoal-light); border: 1.5px solid var(--stone-light); }
+    .share-btn.copy     { background: #f2f2f2; color: var(--charcoal-light); border: 1.5px solid var(--stone-light); }
+    .share-btn.copy.copied { background: var(--teal-xlight); color: var(--teal-dark); border-color: var(--teal); }
       background: var(--charcoal);
       color: rgba(255,255,255,0.55);
       text-align: center;
@@ -718,6 +758,32 @@
         <h3>👩‍🍳 אופן הכנה</h3>
         <ol class="steps-list" id="modal-steps"></ol>
       </div>
+
+      <div class="share-section">
+        <div class="share-label">שתף את המתכון</div>
+        <div class="share-btns">
+          <button class="share-btn whatsapp" onclick="shareRecipe('whatsapp')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.563 4.14 1.546 5.877L.057 23.868a.5.5 0 0 0 .611.611l5.973-1.488A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.956 9.956 0 0 1-5.127-1.417l-.361-.214-3.747.934.951-3.671-.235-.375A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            וואטסאפ
+          </button>
+          <button class="share-btn telegram" onclick="shareRecipe('telegram')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.9l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.659z"/></svg>
+            טלגרם
+          </button>
+          <button class="share-btn email" onclick="shareRecipe('email')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            מייל
+          </button>
+          <button class="share-btn copy" id="copy-btn" onclick="shareRecipe('copy')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="copy-label">העתק קישור</span>
+          </button>
+          <button class="share-btn print" onclick="shareRecipe('print')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            הדפסה
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -801,6 +867,7 @@
         return;
       }
       renderGrid();
+      openRecipeFromHash();
     } catch(e) {
       console.error('❌ שגיאה בטעינת הנתונים:', e.message, e);
       document.getElementById('recipes-grid').innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div><p>שגיאה: ${e.message}</p><p style="font-size:0.8rem;margin-top:0.5rem;color:#888">פרטים נוספים ב-Console (F12)</p></div>`;
@@ -819,6 +886,7 @@
       ['שייק פירות קיץ', 'שתייה', 'בננה 1|תות 10|מיץ תפוזים 200 מ"ל|דבש כפית|קרח', '5', 'קל', 'שמים הכל בבלנדר|טוחנים עד לקרמיות|מגישים מיד', '', 'טבעוני|ללא גלוטן|ילדים'],
     ];
     renderGrid();
+    openRecipeFromHash();
   }
 
   // ── Render ──
@@ -896,6 +964,10 @@
     // qty buttons reset
     document.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.qty-btn')[1].classList.add('active');
+
+    // set hash for deep link
+    const hash = encodeURIComponent(recipe[COLS.name]);
+    history.replaceState(null, '', '#' + hash);
 
     document.getElementById('modal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -984,6 +1056,7 @@
     const modal = document.getElementById('modal-content');
     modal.style.transition = 'transform 0.3s ease';
     modal.style.transform = 'translateY(100%)';
+    history.replaceState(null, '', window.location.pathname);
     setTimeout(() => {
       document.getElementById('modal').style.display = 'none';
       modal.style.transform = '';
@@ -1042,7 +1115,38 @@
     });
   })();
 
-  // ── Collapsible filters (mobile) ──
+  // ── Share ──
+  function shareRecipe(platform) {
+    const name = activeRecipe ? activeRecipe[COLS.name] : '';
+    const url  = window.location.origin + window.location.pathname + '#' + encodeURIComponent(name);
+    const text = `המתכון של ${name} מהאתר צריקרים במטבח 🍽️`;
+
+    if (platform === 'whatsapp') {
+      window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`, '_blank');
+    } else if (platform === 'telegram') {
+      window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
+    } else if (platform === 'email') {
+      window.location.href = `mailto:?subject=${encodeURIComponent('מתכון: ' + name)}&body=${encodeURIComponent(text + '\n\n' + url)}`;
+    } else if (platform === 'copy') {
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const lbl = document.getElementById('copy-label');
+        btn.classList.add('copied');
+        lbl.textContent = '✓ הועתק!';
+        setTimeout(() => { btn.classList.remove('copied'); lbl.textContent = 'העתק קישור'; }, 2000);
+      });
+    } else if (platform === 'print') {
+      window.print();
+    }
+  }
+
+  // ── Deep link: open recipe from URL hash on load ──
+  function openRecipeFromHash() {
+    const hash = decodeURIComponent(window.location.hash.slice(1));
+    if (!hash || !allRecipes.length) return;
+    const recipe = allRecipes.find(r => r[COLS.name] === hash);
+    if (recipe) openModal(recipe);
+  }
   function toggleFilters() {
     const btn = document.getElementById('filters-toggle');
     const panel = document.getElementById('filters-collapsible');
