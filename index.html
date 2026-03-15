@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>המטבח של הצריקרים</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;700;900&family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f0fbfa;
+      --warm-white: #f7fffe;
+      --teal: #2ab5a0;
+      --teal-light: #4dd4be;
+      --teal-dark: #1a8c7a;
+      --teal-xlight: #d0f5f0;
+      --sky: #5bc8e8;
+      --sky-light: #a8e8f5;
+      --mint: #7ee8d8;
+      --charcoal: #1e3532;
+      --charcoal-light: #3a5450;
+      --stone: #6a9490;
+      --stone-light: #b0d4d0;
+      --gold: #2ab5a0;
+      --gold-light: #4dd4be;
+      --shadow-sm: 0 2px 8px rgba(30,53,50,0.08);
+      --shadow-md: 0 8px 24px rgba(30,53,50,0.12);
+      --shadow-lg: 0 16px 48px rgba(30,53,50,0.16);
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Assistant', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      direction: rtl;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--warm-white);
+      border-bottom: 1px solid rgba(154,142,126,0.2);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+    .site-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .logo-icon {
+      width: 42px; height: 42px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .site-name {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--teal-dark);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .site-tagline {
+      font-size: 0.7rem;
+      color: var(--stone);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+    .btn-add {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-family: 'Assistant', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(42,181,160,0.35);
+    }
+    .btn-add:hover {
+      background: var(--teal-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(42,181,160,0.45);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--teal) 0%, #1fa08c 50%, var(--teal-dark) 100%);
+      color: white;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.88;
+      font-weight: 300;
+    }
+
+    /* ── FILTERS ── */
+    .filters-section {
+      background: var(--warm-white);
+      border-bottom: 1px solid rgba(154,142,126,0.15);
+      padding: 1.25rem 2rem;
+      position: sticky;
+      top: 70px;
+      z-index: 90;
+      box-shadow: var(--shadow-sm);
+    }
+    .filters-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--stone);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .filter-chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .chip {
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--stone-light);
+      background: transparent;
+      font-family: 'Assistant', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--charcoal-light);
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .chip:hover { border-color: var(--teal); color: var(--teal); }
+    .chip.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+      box-shadow: 0 2px 8px rgba(42,181,160,0.3);
+    }
+    .search-box {
+      margin-right: auto;
+      position: relative;
+    }
+    .search-box input {
+      padding: 0.45rem 1rem 0.45rem 2.5rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--stone-light);
+      font-family: 'Assistant', sans-serif;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      background: var(--cream);
+      outline: none;
+      width: 200px;
+      transition: border-color 0.2s, width 0.3s;
+    }
+    .search-box input:focus { border-color: var(--teal); width: 240px; }
+    .search-icon {
+      position: absolute;
+      left: 0.75rem; top: 50%;
+      transform: translateY(-50%);
+      color: var(--stone);
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    /* ── GRID ── */
+    .main {
+      max-width: 1200px;
+      margin: 2.5rem auto;
+      padding: 0 2rem;
+    }
+    .grid-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .grid-header h2 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .recipe-count {
+      font-size: 0.85rem;
+      color: var(--stone);
+      font-weight: 600;
+    }
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── RECIPE CARD ── */
+    .recipe-card {
+      background: var(--warm-white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.22s, box-shadow 0.22s;
+      border: 1px solid rgba(154,142,126,0.12);
+      animation: fadeUp 0.4s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .recipe-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--sage-light), var(--stone-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .card-img .placeholder { font-size: 4rem; }
+    .card-body { padding: 1.1rem 1.25rem 1.25rem; }
+    .card-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+    }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.18rem 0.6rem;
+      border-radius: 50px;
+      letter-spacing: 0.03em;
+    }
+    .tag-category { background: #d0f5f0; color: var(--teal-dark); }
+    .tag-gluten { background: #e0f8e8; color: #1a7a40; }
+    .tag-vegan { background: #e8f5e0; color: #3a7020; }
+    .tag-protein { background: #e0f0ff; color: #1a50aa; }
+    .tag-meaty { background: #ffe8e8; color: #aa2020; }
+    .tag-dairy { background: #e8f0ff; color: #2040aa; }
+    .tag-kids { background: #fff8d0; color: #907000; }
+    .card-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--charcoal);
+      line-height: 1.3;
+    }
+    .card-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--stone);
+    }
+    .card-meta span { display: flex; align-items: center; gap: 0.25rem; }
+
+    /* ── LOADING / EMPTY ── */
+    .loading {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--stone);
+      font-size: 1.1rem;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--stone-light);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty-state { grid-column: 1/-1; text-align: center; padding: 4rem 2rem; color: var(--stone); }
+    .empty-state .emoji { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(45,45,45,0.55);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal {
+      background: var(--warm-white);
+      border-radius: 24px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      animation: slideUp 0.3s ease;
+      direction: rtl;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .modal-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 24px 24px 0 0;
+      background: linear-gradient(135deg, var(--sage-light), var(--stone-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      overflow: hidden;
+    }
+    .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-body { padding: 1.75rem 2rem 2rem; }
+    .modal-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .modal-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: var(--charcoal);
+    }
+    .modal-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--stone);
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .modal-meta span { display: flex; align-items: center; gap: 0.3rem; font-weight: 600; }
+    .modal-section { margin-bottom: 1.5rem; }
+    .modal-section h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--teal-dark);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--teal-xlight);
+    }
+    /* Quantity controls */
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .qty-label { font-size: 0.85rem; font-weight: 600; color: var(--stone); }
+    .qty-btn {
+      padding: 0.35rem 0.9rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--stone-light);
+      background: transparent;
+      font-family: 'Assistant', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--charcoal-light);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .qty-btn:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-xlight); }
+    .qty-btn.active { background: var(--teal); border-color: var(--teal); color: white; }
+    .qty-current {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--teal-dark);
+      background: var(--teal-xlight);
+      padding: 0.3rem 0.75rem;
+      border-radius: 50px;
+    }
+    .ingredients-list { list-style: none; }
+    .ingredients-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(154,142,126,0.1);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ingredients-list li:last-child { border-bottom: none; }
+    .ing-amount {
+      font-weight: 700;
+      color: var(--teal-dark);
+      white-space: nowrap;
+    }
+    .steps-list { list-style: none; counter-reset: steps; }
+    .steps-list li {
+      padding: 0.75rem 0 0.75rem 3rem;
+      border-bottom: 1px solid rgba(154,142,126,0.1);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      position: relative;
+    }
+    .steps-list li:last-child { border-bottom: none; }
+    .steps-list li::before {
+      counter-increment: steps;
+      content: counter(steps);
+      position: absolute;
+      right: 0; top: 0.7rem;
+      width: 28px; height: 28px;
+      background: var(--teal);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      width: 36px; height: 36px;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.15s;
+    }
+    .modal-close:hover { background: white; }
+    .modal-img-wrap { position: relative; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+      font-size: 0.85rem;
+    }
+    footer strong { color: rgba(255,255,255,0.85); }
+
+    /* ── CONFIG NOTICE ── */
+    .config-notice {
+      background: #e8faf8;
+      border: 1.5px solid var(--teal);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.88rem;
+      color: #0d5a50;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .config-notice strong { color: #0a3d36; }
+
+    @media (max-width: 640px) {
+      .hero { padding: 2.5rem 1.25rem 2rem; }
+      .main { padding: 0 1rem; margin-top: 1.5rem; }
+      .filters-inner { gap: 0.5rem; }
+      .search-box { margin-right: 0; width: 100%; }
+      .search-box input { width: 100%; }
+      .modal-body { padding: 1.25rem 1.25rem 1.5rem; }
+      .modal-title { font-size: 1.5rem; }
+      .header-inner { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-inner">
+    <div class="site-logo">
+      <div class="logo-icon">🍳</div>
+      <div>
+        <div class="site-name">המטבח של הצריקרים</div>
+        <div class="site-tagline">מתכונים מהלב, לשולחן המשפחה</div>
+      </div>
+    </div>
+    <a id="add-recipe-btn" href="#" target="_blank" class="btn-add">
+      ✦ הוסף מתכון
+    </a>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <h1>המטבח של הצריקרים 🍽️</h1>
+  <p>אוסף המתכונים שלנו — טעים, מגוון ותמיד עם אהבה</p>
+</div>
+
+<!-- ── FILTERS ── -->
+<div class="filters-section">
+  <div class="filters-inner">
+    <span class="filter-label">סינון:</span>
+    <div class="filter-chips" id="category-chips">
+      <button class="chip active" data-filter="">הכל</button>
+      <button class="chip" data-filter="בשרי">🥩 בשרי</button>
+      <button class="chip" data-filter="חלבי">🧀 חלבי</button>
+      <button class="chip" data-filter="קינוח">🍰 קינוח</button>
+      <button class="chip" data-filter="מרק">🍜 מרק</button>
+      <button class="chip" data-filter="סלט">🥗 סלט</button>
+      <button class="chip" data-filter="שתייה">🥤 שתייה</button>
+      <button class="chip" data-filter="ללא גלוטן">🌾 ללא גלוטן</button>
+      <button class="chip" data-filter="טבעוני">🌿 טבעוני</button>
+      <button class="chip" data-filter="עשיר בחלבון">💪 עשיר בחלבון</button>
+      <button class="chip" data-filter="ילדים">👶 ילדים</button>
+    </div>
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="חיפוש מתכון..." />
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<main class="main">
+  <div id="config-notice" class="config-notice" style="display:none">
+    ⚠️ <div><strong>נדרשת הגדרה:</strong> יש להגדיר את מזהה גיליון Google Sheets ואת קישור הטופס בקובץ זה. ראה הוראות בתחתית הדף.</div>
+  </div>
+
+  <div class="grid-header">
+    <h2>המתכונים שלנו</h2>
+    <span class="recipe-count" id="recipe-count"></span>
+  </div>
+
+  <div class="recipes-grid" id="recipes-grid">
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>טוען מתכונים...</p>
+    </div>
+  </div>
+</main>
+
+<!-- ── RECIPE MODAL ── -->
+<div class="modal-overlay" id="modal" style="display:none" onclick="closeModal(event)">
+  <div class="modal" id="modal-content">
+    <div class="modal-img-wrap">
+      <div class="modal-img" id="modal-img"><span>🍽️</span></div>
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tags" id="modal-tags"></div>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-meta" id="modal-meta"></div>
+
+      <div class="modal-section">
+        <h3>🥗 מצרכים</h3>
+        <div class="qty-controls">
+          <span class="qty-label">כמות:</span>
+          <button class="qty-btn" onclick="setQty(0.5)">½ מנה</button>
+          <button class="qty-btn active" onclick="setQty(1)">רגיל</button>
+          <button class="qty-btn" onclick="setQty(2)">כפול</button>
+          <button class="qty-btn" onclick="setQty(3)">×3</button>
+          <span class="qty-current" id="qty-display">×1</span>
+        </div>
+        <ul class="ingredients-list" id="modal-ingredients"></ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>👩‍🍳 אופן הכנה</h3>
+        <ol class="steps-list" id="modal-steps"></ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <strong>המטבח של הצריקרים</strong> &nbsp;|&nbsp; כל הזכויות שמורות למשפחה 🍳
+</footer>
+
+<script>
+  // ══════════════════════════════════════════════
+  //  ⚙️  CONFIGURATION — עדכן כאן לאחר ההגדרה
+  // ══════════════════════════════════════════════
+
+  const CONFIG = {
+    SHEET_ID:   "1FDxiFveqGH1YCdsoxJv4BkNPrs2g_xT2sRgbhmKWoDs",
+    FORM_URL:   "https://docs.google.com/forms/d/1kPu_w0kj9Qjh0YruPtq9G2QgcLj22Jx89Lo0_RQ7B7Y/viewform",
+    SHEET_NAME: "תגובות לטופס 1",
+    SHEET_GID:  "194765517",
+  };
+
+  // ══════════════════════════════════════════════
+  //  מיפוי עמודות (A=0, B=1, ...)
+  //  A=חותמת זמן, B=אימייל, C=שם מתכון, D=קטגוריה
+  //  E=מצרכים, F=זמן הכנה, G=רמת קושי, H=אופן הכנה
+  //  I=קישור תמונה, J=תגיות תזונה
+  //  K=מצרכים מעובד (col 10), L=אופן הכנה מעובד (col 11), M=תגיות מעובד (col 12)
+  // ══════════════════════════════════════════════
+
+  const COLS = { name:2, category:3, ingredients:10, time:5, difficulty:6, steps:11, image:8, tags:12 };
+
+  let allRecipes = [];
+  let currentFilter = '';
+  let currentSearch = '';
+  let currentQty = 1;
+  let activeRecipe = null;
+
+  // ── Initialise ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const addBtn = document.getElementById('add-recipe-btn');
+    if (CONFIG.FORM_URL && !CONFIG.FORM_URL.includes('YOUR_')) {
+      addBtn.href = CONFIG.FORM_URL;
+    } else {
+      addBtn.href = '#';
+      addBtn.onclick = e => { e.preventDefault(); alert('יש להגדיר את קישור הטופס ב-CONFIG.FORM_URL'); };
+      document.getElementById('config-notice').style.display = 'flex';
+    }
+
+    if (CONFIG.SHEET_ID && !CONFIG.SHEET_ID.includes('YOUR_')) {
+      fetchRecipes();
+    } else {
+      loadDemoRecipes();
+    }
+  });
+
+  // ── Fetch from Google Sheets ──
+  async function fetchRecipes() {
+    const url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:json&gid=${CONFIG.SHEET_GID}`;
+    console.log('🔍 Fetching from:', url);
+    try {
+      const res = await fetch(url);
+      console.log('📡 Response status:', res.status, res.ok);
+      const text = await res.text();
+      console.log('📄 Raw response (first 200):', text.substring(0, 200));
+      // Google wraps the JSON — find where the actual JSON starts
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if (start === -1 || end === -1) throw new Error('תגובה לא תקינה מ-Google Sheets');
+      const json = JSON.parse(text.substring(start, end + 1));
+      console.log('✅ Parsed JSON status:', json.status);
+      if (json.status === 'error') throw new Error(JSON.stringify(json.errors));
+      const rows = json.table.rows;
+      console.log('📊 Rows found:', rows.length);
+      console.log('📋 Columns:', json.table.cols.map(c => c.label));
+      allRecipes = rows
+        .map(row => row.c.map(cell => cell ? (cell.v !== null && cell.v !== undefined ? String(cell.v) : '') : ''))
+        .filter(r => r[COLS.name] && r[COLS.name].trim());
+      console.log('🍽️ Recipes loaded:', allRecipes.length);
+      if (allRecipes.length === 0) {
+        document.getElementById('recipes-grid').innerHTML = `<div class="empty-state"><div class="emoji">📋</div><p>הגיליון ריק או שהנוסחאות בעמודות K/L/M חסרות</p></div>`;
+        return;
+      }
+      renderGrid();
+    } catch(e) {
+      console.error('❌ שגיאה בטעינת הנתונים:', e.message, e);
+      document.getElementById('recipes-grid').innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div><p>שגיאה: ${e.message}</p><p style="font-size:0.8rem;margin-top:0.5rem;color:#888">פרטים נוספים ב-Console (F12)</p></div>`;
+    }
+  }
+
+  // ── Demo data (shown before Google Sheets is configured) ──
+  function loadDemoRecipes() {
+    allRecipes = [
+      ['עוגת שוקולד נמסה', 'קינוח', 'שוקולד מריר 200 גרם|חמאה 150 גרם|ביצים 4|סוכר 200 גרם|קמח 3 כפות', '45', 'קל', 'ממיסים שוקולד וחמאה|מערבבים עם ביצים וסוכר|מוסיפים קמח|אופים ב-175° 25 דקות', '', 'חלבי'],
+      ['סלט ירקות קיץ', 'סלט', 'עגבניות 3|מלפפון 2|פלפל אדום 1|בצל סגול ½|שמן זית 3 כפות|לימון', '10', 'קל', 'קוצצים ירקות לקוביות|מתבלים בשמן זית ולימון|מלח ופלפל לפי הטעם', '', 'טבעוני|ללא גלוטן'],
+      ['קציצות בשר בעגבניות', 'בשרי', 'בשר טחון 500 גרם|בצל 1|ביצה 1|פירורי לחם 4 כפות|רסק עגבניות 400 גרם|שום 3 שיניים', '60', 'בינוני', 'מערבבים בשר עם בצל קצוץ וביצה|מוסיפים פירורי לחם ומתבלים|יוצרים קציצות|מבשלים ברסק עגבניות 40 דקות', '', 'בשרי|עשיר בחלבון|ילדים'],
+      ['מרק עוף קלאסי', 'מרק', 'עוף 1 שלם|גזר 2|כרפס 2 גבעולים|בצל 1|שמיר|מלח ופלפל|מים 3 ליטר', '90', 'קל', 'מניחים עוף בסיר|מוסיפים ירקות ומים|מביאים לרתיחה ומבשלים שעה|מסננים ומתבלים', '', 'ללא גלוטן|בשרי|ילדים'],
+      ['לביבות גבינה', 'חלבי', 'גבינה לבנה 250 גרם|ביצים 2|קמח 4 כפות|סוכר 2 כפות|חמאה 30 גרם', '20', 'קל', 'מערבבים גבינה וביצים|מוסיפים קמח וסוכר|מחממים מחבת עם חמאה|אופים עד להזהבה|הופכים ומסיימים', '', 'חלבי|ילדים'],
+      ['חומוס ביתי', 'סלט', 'גרגרי חומוס 400 גרם|טחינה 100 גרם|לימון 2|שום 2 שיניים|מלח|שמן זית', '15', 'קל', 'מבשלים גרגרי חומוס עד ריכוך|טוחנים עם שאר החומרים|מוסיפים מי בישול עד לקרם חלק|מגישים עם שמן זית', '', 'טבעוני|ללא גלוטן|עשיר בחלבון'],
+      ['שייק פירות קיץ', 'שתייה', 'בננה 1|תות 10|מיץ תפוזים 200 מ"ל|דבש כפית|קרח', '5', 'קל', 'שמים הכל בבלנדר|טוחנים עד לקרמיות|מגישים מיד', '', 'טבעוני|ללא גלוטן|ילדים'],
+    ];
+    renderGrid();
+  }
+
+  // ── Render ──
+  function renderGrid() {
+    const grid = document.getElementById('recipes-grid');
+    const filtered = allRecipes.filter(r => {
+      const cat = r[COLS.category] || '';
+      const tags = (r[COLS.tags] || '');
+      const matchCat = !currentFilter || cat === currentFilter || tags.includes(currentFilter);
+      const matchSearch = !currentSearch || r[COLS.name].includes(currentSearch) || tags.includes(currentSearch) || cat.includes(currentSearch);
+      return matchCat && matchSearch;
+    });
+    document.getElementById('recipe-count').textContent = `${filtered.length} מתכונים`;
+    if (!filtered.length) {
+      grid.innerHTML = `<div class="empty-state"><div class="emoji">🥣</div><p>לא נמצאו מתכונים. נסה סינון אחר.</p></div>`;
+      return;
+    }
+    grid.innerHTML = filtered.map((r, i) => cardHTML(r, i)).join('');
+    grid.querySelectorAll('.recipe-card').forEach((el, i) => {
+      el.addEventListener('click', () => openModal(filtered[i]));
+      el.style.animationDelay = `${i * 0.05}s`;
+    });
+  }
+
+  function cardHTML(r, i) {
+    const tags = (r[COLS.tags]||'').split('|').filter(Boolean);
+    const imgHTML = r[COLS.image] ? `<img src="${r[COLS.image]}" alt="${r[COLS.name]}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=placeholder>🍽️</span>'" />` : `<span class="placeholder">${categoryEmoji(r[COLS.category])}</span>`;
+    return `
+      <div class="recipe-card">
+        <div class="card-img">${imgHTML}</div>
+        <div class="card-body">
+          <div class="card-tags">
+            ${r[COLS.category] ? `<span class="tag tag-category">${r[COLS.category]}</span>` : ''}
+            ${tags.map(t => `<span class="tag ${tagClass(t)}">${t}</span>`).join('')}
+          </div>
+          <div class="card-title">${r[COLS.name]}</div>
+          <div class="card-meta">
+            ${r[COLS.time] ? `<span>⏱ ${r[COLS.time]} דק'</span>` : ''}
+            ${r[COLS.difficulty] ? `<span>📊 ${r[COLS.difficulty]}</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ── Modal ──
+  function openModal(recipe) {
+    activeRecipe = recipe;
+    currentQty = 1;
+    document.getElementById('modal-title').textContent = recipe[COLS.name];
+
+    // image
+    const imgEl = document.getElementById('modal-img');
+    imgEl.innerHTML = recipe[COLS.image]
+      ? `<img src="${recipe[COLS.image]}" alt="${recipe[COLS.name]}" onerror="this.parentElement.innerHTML='<span style=font-size:6rem>🍽️</span>'" />`
+      : `<span style="font-size:6rem">${categoryEmoji(recipe[COLS.category])}</span>`;
+
+    // tags
+    const tags = (recipe[COLS.tags]||'').split('|').filter(Boolean);
+    document.getElementById('modal-tags').innerHTML =
+      (recipe[COLS.category] ? `<span class="tag tag-category">${recipe[COLS.category]}</span>` : '') +
+      tags.map(t => `<span class="tag ${tagClass(t)}">${t}</span>`).join('');
+
+    // meta
+    document.getElementById('modal-meta').innerHTML = [
+      recipe[COLS.time] ? `<span>⏱ ${recipe[COLS.time]} דקות</span>` : '',
+      recipe[COLS.difficulty] ? `<span>📊 ${recipe[COLS.difficulty]}</span>` : '',
+    ].join('');
+
+    renderIngredients();
+
+    // steps
+    const steps = recipe[COLS.steps].split('|').filter(Boolean);
+    document.getElementById('modal-steps').innerHTML = steps.map(s => `<li>${s}</li>`).join('');
+
+    // qty buttons reset
+    document.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.qty-btn')[1].classList.add('active');
+
+    document.getElementById('modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function renderIngredients() {
+    if (!activeRecipe) return;
+    const ings = activeRecipe[COLS.ingredients].split('|').filter(Boolean);
+    document.getElementById('modal-ingredients').innerHTML = ings.map(ing => {
+      const m = ing.match(/^(.*?)(\d[\d\/\.]*)(\s*\S+)?$/);
+      if (m) {
+        const label = m[1].trim();
+        const num = parseFloat(m[2]);
+        const unit = m[3] ? m[3].trim() : '';
+        const calc = currentQty === 1 ? m[2] : formatNum(num * currentQty);
+        return `<li><span>${label}</span><span class="ing-amount">${calc} ${unit}</span></li>`;
+      }
+      return `<li><span>${ing}</span></li>`;
+    }).join('');
+    document.getElementById('qty-display').textContent = currentQty === 0.5 ? '×½' : `×${currentQty}`;
+  }
+
+  function setQty(q) {
+    currentQty = q;
+    document.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    renderIngredients();
+  }
+
+  function formatNum(n) {
+    if (n === Math.floor(n)) return String(n);
+    return Math.round(n * 10) / 10;
+  }
+
+  function closeModal(e) { if (e.target === document.getElementById('modal')) closeModalBtn(); }
+  function closeModalBtn() {
+    document.getElementById('modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // ── Filters ──
+  document.getElementById('category-chips').addEventListener('click', e => {
+    if (!e.target.classList.contains('chip')) return;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    e.target.classList.add('active');
+    currentFilter = e.target.dataset.filter;
+    renderGrid();
+  });
+  document.getElementById('search-input').addEventListener('input', e => {
+    currentSearch = e.target.value.trim();
+    renderGrid();
+  });
+
+  // ── Helpers ──
+  function categoryEmoji(cat) {
+    const map = { 'קינוח':'🍰', 'בשרי':'🥩', 'חלבי':'🧀', 'מרק':'🍜', 'סלט':'🥗', 'שתייה':'🥤' };
+    return map[cat] || '🍽️';
+  }
+  function tagClass(t) {
+    if (t.includes('ללא גלוטן')) return 'tag-gluten';
+    if (t.includes('טבעוני')) return 'tag-vegan';
+    if (t.includes('עשיר בחלבון')) return 'tag-protein';
+    if (t.includes('בשרי')) return 'tag-meaty';
+    if (t.includes('חלבי')) return 'tag-dairy';
+    if (t.includes('ילדים')) return 'tag-kids';
+    return 'tag-category';
+  }
+</script>
+</body>
+</html>
