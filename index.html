@@ -443,6 +443,18 @@
     }
     .ingredients-list li:last-child { border-bottom: none; }
     .ingredients-list li span:first-child { text-align: right; flex: 1; }
+    .ing-subtitle {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--teal-dark);
+      background: var(--teal-xlight);
+      padding: 0.35rem 0.75rem !important;
+      border-radius: var(--radius-sm);
+      margin-top: 0.5rem;
+      border-bottom: none !important;
+      display: block;
+    }
     .ing-amount {
       font-weight: 700;
       color: var(--teal-dark);
@@ -474,20 +486,28 @@
       flex-shrink: 0;
     }
     .modal-close {
-      position: absolute;
-      top: 1rem; left: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 36px; height: 36px;
       border: none;
-      background: rgba(255,255,255,0.9);
+      background: var(--teal-xlight);
       border-radius: 50%;
       cursor: pointer;
-      font-size: 1.1rem;
-      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--teal-dark);
       box-shadow: var(--shadow-sm);
       transition: background 0.15s;
+      flex-shrink: 0;
     }
-    .modal-close:hover { background: white; }
+    .modal-close:hover { background: var(--stone-light); }
     .modal-img-wrap { position: relative; }
+    .modal-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem 0;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -664,9 +684,12 @@
 <!-- ── RECIPE MODAL ── -->
 <div class="modal-overlay" id="modal" style="display:none" onclick="closeModal(event)">
   <div class="modal" id="modal-content">
+    <div class="modal-header-bar">
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+      <div></div>
+    </div>
     <div class="modal-img-wrap">
       <div class="modal-img" id="modal-img"><span>🍽️</span></div>
-      <button class="modal-close" onclick="closeModalBtn()">✕</button>
     </div>
     <div class="modal-body">
       <div class="modal-tags" id="modal-tags"></div>
@@ -876,17 +899,66 @@
   function renderIngredients() {
     if (!activeRecipe) return;
     const ings = activeRecipe[COLS.ingredients].split('|').filter(Boolean);
+
     document.getElementById('modal-ingredients').innerHTML = ings.map(ing => {
-      const m = ing.match(/^(.*?)(\d[\d\/\.]*)(\s*\S+)?$/);
-      if (m) {
-        const label = m[1].trim();
-        const num = parseFloat(m[2]);
-        const unit = m[3] ? m[3].trim() : '';
-        const calc = currentQty === 1 ? m[2] : formatNum(num * currentQty);
-        return `<li><span>${label}</span><span class="ing-amount">${calc} ${unit}</span></li>`;
+      ing = ing.trim();
+
+      // * בתחילת שורה = הערה/הוראה שלא מוכפלת ולא מוצגת
+      if (ing.startsWith('*')) return '';
+
+      // שורה שמסתיימת ב-: = תת כותרת
+      if (ing.endsWith(':')) {
+        return `<li class="ing-subtitle">${ing}</li>`;
       }
-      return `<li><span>${ing}</span></li>`;
+
+      // Helper: parse a single number or range like "250-300"
+      function parseAmount(str) {
+        const range = str.match(/^([\d.,]+)-([\d.,]+)$/);
+        if (range) return { num: parseFloat(range[1]), num2: parseFloat(range[2]), raw: str, isRange: true };
+        const n = parseFloat(str.replace(',','.'));
+        if (!isNaN(n)) return { num: n, raw: str, isRange: false };
+        return null;
+      }
+
+      function scaleAmount(parsed) {
+        if (currentQty === 1) return parsed.raw;
+        if (parsed.isRange) {
+          return `${formatNum(parsed.num * currentQty)}-${formatNum(parsed.num2 * currentQty)}`;
+        }
+        return formatNum(parsed.num * currentQty);
+      }
+
+      const numPat  = '[\\d.,]+-?[\\d.,]*';
+      const unitPat = '[א-ת"\'][א-ת\'"\\w.]*(?:\\s+[א-ת"\'][א-ת\'"\\w.]*)?';
+
+      const m1 = ing.match(new RegExp(`^(.+?)\\s+(${numPat})\\s*(${unitPat})?$`));
+      const m2 = ing.match(new RegExp(`^(${numPat})\\s+(${unitPat})\\s+(.+)$`));
+      const m3 = ing.match(new RegExp(`^(${numPat})\\s+(.+)$`));
+
+      let label, parsed, unit;
+
+      if (m1) {
+        const p = parseAmount(m1[2]);
+        if (p) { label = m1[1].trim(); parsed = p; unit = m1[3] ? m1[3].trim() : ''; }
+      }
+      if (!label && m2) {
+        const p = parseAmount(m2[1]);
+        if (p) { parsed = p; unit = m2[2].trim(); label = m2[3].trim(); }
+      }
+      if (!label && m3) {
+        const p = parseAmount(m3[1]);
+        if (p) { parsed = p; unit = ''; label = m3[2].trim(); }
+      }
+
+      if (label && parsed) {
+        const calc = scaleAmount(parsed);
+        const amountStr = unit ? `${calc} ${unit}` : `${calc}`;
+        return `<li><span>${label}</span><span class="ing-amount">${amountStr}</span></li>`;
+      }
+
+      return `<li><span style="width:100%">${ing}</span></li>`;
     }).join('');
+
     document.getElementById('qty-display').textContent = currentQty === 0.5 ? '×½' : `×${currentQty}`;
   }
 
