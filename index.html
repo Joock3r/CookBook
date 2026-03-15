@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -71,9 +72,9 @@
       font-size: 1.4rem;
     }
     .site-name {
-      font-family: 'Frank Ruhl Libre', serif;
+      font-family: 'Assistant', sans-serif;
       font-size: 1.4rem;
-      font-weight: 900;
+      font-weight: 700;
       color: var(--teal-dark);
       letter-spacing: -0.02em;
       line-height: 1.1;
@@ -124,9 +125,9 @@
       pointer-events: none;
     }
     .hero h1 {
-      font-family: 'Frank Ruhl Libre', serif;
+      font-family: 'Assistant', sans-serif;
       font-size: clamp(2.2rem, 6vw, 3.8rem);
-      font-weight: 900;
+      font-weight: 700;
       line-height: 1.1;
       margin-bottom: 0.75rem;
       text-shadow: 0 2px 12px rgba(0,0,0,0.2);
@@ -227,7 +228,7 @@
       margin-bottom: 1.5rem;
     }
     .grid-header h2 {
-      font-family: 'Frank Ruhl Libre', serif;
+      font-family: 'Assistant', sans-serif;
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--charcoal);
@@ -295,8 +296,8 @@
     .tag-dairy { background: #e8f0ff; color: #2040aa; }
     .tag-kids { background: #fff8d0; color: #907000; }
     .card-title {
-      font-family: 'Frank Ruhl Libre', serif;
-      font-size: 1.18rem;
+      font-family: 'Assistant', sans-serif;
+      font-size: 1.05rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
       color: var(--charcoal);
@@ -375,9 +376,9 @@
     .modal-body { padding: 1.75rem 2rem 2rem; }
     .modal-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
     .modal-title {
-      font-family: 'Frank Ruhl Libre', serif;
-      font-size: 2rem;
-      font-weight: 900;
+      font-family: 'Assistant', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
       margin-bottom: 0.5rem;
       color: var(--charcoal);
     }
@@ -392,8 +393,8 @@
     .modal-meta span { display: flex; align-items: center; gap: 0.3rem; font-weight: 600; }
     .modal-section { margin-bottom: 1.5rem; }
     .modal-section h3 {
-      font-family: 'Frank Ruhl Libre', serif;
-      font-size: 1.15rem;
+      font-family: 'Assistant', sans-serif;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--teal-dark);
       margin-bottom: 0.75rem;
@@ -444,7 +445,7 @@
     .ingredients-list li:last-child { border-bottom: none; }
     .ingredients-list li span:first-child { text-align: right; flex: 1; }
     .ing-subtitle {
-      font-family: 'Frank Ruhl Libre', serif;
+      font-family: 'Assistant', sans-serif;
       font-weight: 700;
       font-size: 0.9rem;
       color: var(--teal-dark);
@@ -489,24 +490,32 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px; height: 36px;
+      width: 38px; height: 38px;
       border: none;
       background: var(--teal-xlight);
       border-radius: 50%;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--teal-dark);
       box-shadow: var(--shadow-sm);
       transition: background 0.15s;
       flex-shrink: 0;
+      position: sticky;
+      top: 0.75rem;
+      z-index: 10;
     }
     .modal-close:hover { background: var(--stone-light); }
     .modal-img-wrap { position: relative; }
     .modal-header-bar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.25rem 0;
+      justify-content: flex-start;
+      padding: 0.85rem 1.25rem 0;
+      position: sticky;
+      top: 0;
+      background: var(--warm-white);
+      z-index: 10;
+      border-radius: 24px 24px 0 0;
     }
 
     /* ── FOOTER ── */
