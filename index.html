@@ -440,10 +440,33 @@
       align-items: baseline;
       text-align: right;
       direction: rtl;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      user-select: none;
+    }
+    .ingredients-list li.done {
+      opacity: 0.38;
+      text-decoration: line-through;
+      text-decoration-color: var(--stone);
+    }
+    .ingredients-list li.done .ing-amount {
+      text-decoration: line-through;
+      text-decoration-color: var(--stone);
+    }
+    .ingredients-list li:not(.ing-subtitle):hover {
+      background: var(--teal-xlight);
+      border-radius: var(--radius-sm);
+      padding-right: 0.4rem;
+      padding-left: 0.4rem;
     }
     .ingredients-list li:last-child { border-bottom: none; }
     .ingredients-list li span:first-child { text-align: right; flex: 1; }
-    .ing-subtitle {
+    .ing-hint {
+      font-size: 0.75rem;
+      color: var(--stone);
+      margin-bottom: 0.6rem;
+      font-style: italic;
+    }
       font-family: 'Assistant', sans-serif;
       font-weight: 700;
       font-size: 0.9rem;
@@ -743,6 +766,7 @@
 
       <div class="modal-section">
         <h3>🥗 מצרכים</h3>
+        <div class="ing-hint">לחץ על מצרך לסימון ✓</div>
         <div class="qty-controls">
           <span class="qty-label">כמות:</span>
           <button class="qty-btn" onclick="setQty(0.5)">½ מנה</button>
@@ -980,10 +1004,8 @@
     document.getElementById('modal-ingredients').innerHTML = ings.map(ing => {
       ing = ing.trim();
 
-      // * בתחילת שורה = הערה/הוראה שלא מוכפלת ולא מוצגת
       if (ing.startsWith('*')) return '';
 
-      // שורה שמסתיימת ב-: = תת כותרת
       if (ing.endsWith(':')) {
         return `<li class="ing-subtitle">${ing}</li>`;
       }
@@ -1037,6 +1059,11 @@
     }).join('');
 
     document.getElementById('qty-display').textContent = currentQty === 0.5 ? '×½' : `×${currentQty}`;
+
+    // tap to check off ingredients
+    document.querySelectorAll('#modal-ingredients li:not(.ing-subtitle)').forEach(li => {
+      li.addEventListener('click', () => li.classList.toggle('done'));
+    });
   }
 
   function setQty(q) {
