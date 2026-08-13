@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -677,36 +679,373 @@
       .recipes-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <style>
+    /* 2026 editorial redesign */
+    :root {
+      --paper: #f4f0e7;
+      --paper-deep: #e9e2d5;
+      --surface: #fffdf8;
+      --ink: #202823;
+      --ink-soft: #566059;
+      --tomato: #d94f39;
+      --tomato-dark: #ad3526;
+      --sage: #3f6c56;
+      --sage-pale: #dce8df;
+      --mustard: #d5a23d;
+      --line: #d8d1c4;
+      --shadow-sm: 0 1px 2px rgba(32, 40, 35, 0.06), 0 5px 16px rgba(32, 40, 35, 0.05);
+      --shadow-md: 0 18px 40px rgba(32, 40, 35, 0.13);
+      --shadow-lg: 0 28px 80px rgba(32, 40, 35, 0.2);
+      --radius: 6px;
+      --radius-sm: 4px;
+      --cream: var(--paper);
+      --warm-white: var(--surface);
+      --teal: var(--tomato);
+      --teal-light: #e77966;
+      --teal-dark: var(--tomato-dark);
+      --teal-xlight: #f8e1dc;
+      --charcoal: var(--ink);
+      --charcoal-light: var(--ink-soft);
+      --stone: #747c76;
+      --stone-light: var(--line);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(rgba(63, 108, 86, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 108, 86, 0.035) 1px, transparent 1px);
+      background-size: 28px 28px;
+      color: var(--ink);
+      font-family: 'Assistant', sans-serif;
+    }
+    button, input { letter-spacing: 0; }
+    button:focus-visible, input:focus-visible, a:focus-visible, .recipe-card:focus-visible {
+      outline: 3px solid rgba(217, 79, 57, 0.28);
+      outline-offset: 3px;
+    }
+
+    header {
+      background: rgba(255, 253, 248, 0.96);
+      border-bottom: 1px solid var(--line);
+      box-shadow: none;
+      padding: 0 2rem;
+      backdrop-filter: blur(14px);
+    }
+    .header-inner { max-width: 1280px; height: 82px; }
+    .site-logo { gap: 0.85rem; text-decoration: none; color: inherit; }
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 4px;
+      background: var(--tomato);
+      box-shadow: 4px 4px 0 var(--mustard);
+      color: white;
+      transform: rotate(-2deg);
+    }
+    .logo-icon svg { width: 34px; height: 34px; transform: rotate(2deg); }
+    .site-name {
+      color: var(--ink);
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 1.55rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .site-tagline {
+      color: var(--sage);
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 0.28rem;
+      letter-spacing: 0;
+    }
+    .btn-add {
+      min-height: 44px;
+      padding: 0.65rem 1.15rem;
+      border-radius: 4px;
+      background: var(--ink);
+      box-shadow: none;
+      font-size: 0.94rem;
+      transition: background 0.18s, transform 0.18s;
+    }
+    .btn-add svg { width: 18px; height: 18px; }
+    .btn-add:hover { background: var(--sage); box-shadow: none; transform: translateY(-2px); }
+
+    .hero {
+      min-height: 270px;
+      display: grid;
+      place-items: center;
+      padding: 3.5rem 2rem 3.2rem;
+      color: var(--ink);
+      background-color: var(--surface);
+      background-image:
+        repeating-linear-gradient(45deg, transparent 0 20px, rgba(213, 162, 61, 0.08) 20px 21px),
+        repeating-linear-gradient(-45deg, transparent 0 20px, rgba(217, 79, 57, 0.055) 20px 21px);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+    .hero::before { display: none; }
+    .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.7rem;
+      color: var(--tomato-dark);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+    .hero-kicker::before, .hero-kicker::after {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: var(--tomato);
+    }
+    .hero h1 {
+      margin-bottom: 0.6rem;
+      color: var(--ink);
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(2.7rem, 7vw, 5rem);
+      font-weight: 900;
+      line-height: 0.98;
+      text-shadow: none;
+      letter-spacing: 0;
+    }
+    .hero p { color: var(--ink-soft); font-size: 1.05rem; font-weight: 500; opacity: 1; }
+
+    .filters-section {
+      top: 82px;
+      padding: 1rem 2rem;
+      background: rgba(244, 240, 231, 0.96);
+      border-bottom: 1px solid var(--line);
+      box-shadow: none;
+      backdrop-filter: blur(14px);
+    }
+    .filters-inner { max-width: 1280px; }
+    .filters-collapsible { gap: 1rem; }
+    .filter-label { color: var(--sage); font-size: 0.75rem; letter-spacing: 0; }
+    .filter-chips { gap: 0.42rem; }
+    .chip {
+      min-height: 36px;
+      padding: 0.38rem 0.8rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--surface);
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      transition: border-color 0.16s, color 0.16s, background 0.16s;
+    }
+    .chip:hover { border-color: var(--tomato); color: var(--tomato-dark); }
+    .chip.active { background: var(--tomato); border-color: var(--tomato); box-shadow: none; color: white; }
+    .search-box { min-width: 230px; }
+    .search-box input {
+      width: 230px;
+      min-height: 40px;
+      padding: 0.5rem 1rem 0.5rem 2.7rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--surface);
+      color: var(--ink);
+    }
+    .search-box input:focus { width: 260px; border-color: var(--sage); box-shadow: 0 0 0 3px rgba(63, 108, 86, 0.1); }
+    .search-icon { left: 0.9rem; color: var(--sage); display: flex; }
+    .search-icon svg { width: 18px; height: 18px; }
+
+    .main { max-width: 1280px; margin: 2.8rem auto 4rem; padding: 0 2rem; }
+    .grid-header { align-items: end; margin-bottom: 1.4rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--ink); }
+    .grid-header h2 { font-family: 'Frank Ruhl Libre', serif; font-size: 2rem; font-weight: 900; }
+    .recipe-count { color: var(--sage); font-size: 0.82rem; font-weight: 700; }
+    .recipes-grid { grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.25rem; }
+
+    .recipe-card {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .recipe-card:hover { transform: translateY(-5px); border-color: #b8afa1; box-shadow: var(--shadow-md); }
+    .card-img { height: 220px; background: var(--sage-pale); }
+    .card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 -40px 50px rgba(19, 27, 23, 0.1);
+      pointer-events: none;
+    }
+    .card-img .placeholder {
+      display: grid;
+      width: 100%;
+      height: 100%;
+      place-items: center;
+      background-color: var(--sage-pale);
+      background-image: repeating-linear-gradient(135deg, transparent 0 18px, rgba(63, 108, 86, 0.08) 18px 19px);
+      filter: grayscale(0.12);
+    }
+    .card-body { padding: 1rem 1.1rem 1.2rem; }
+    .card-tags { min-height: 25px; margin-bottom: 0.45rem; }
+    .tag { border-radius: 3px; padding: 0.2rem 0.5rem; font-size: 0.68rem; letter-spacing: 0; }
+    .tag-category { background: #f5ddd8; color: #8e3023; }
+    .tag-gluten { background: #e8ead5; color: #626522; }
+    .tag-vegan { background: var(--sage-pale); color: #315641; }
+    .tag-protein { background: #dce9ee; color: #2c5969; }
+    .tag-meaty { background: #f0d8d4; color: #8c3026; }
+    .tag-dairy { background: #e1e7ef; color: #405a76; }
+    .tag-kids { background: #f7e8bd; color: #795c18; }
+    .card-title { font-family: 'Frank Ruhl Libre', serif; font-size: 1.35rem; font-weight: 900; line-height: 1.2; }
+    .card-meta { padding-top: 0.65rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 0.78rem; }
+
+    .loading, .empty-state { padding: 5rem 2rem; color: var(--ink-soft); }
+    .spinner { border-color: var(--line); border-top-color: var(--tomato); }
+    .config-notice { background: #fff1d0; border: 1px solid #e3b95c; color: #6f5119; }
+
+    .modal-overlay { background: rgba(23, 28, 25, 0.72); backdrop-filter: blur(8px); padding: 2rem; }
+    .modal { max-width: 780px; border: 1px solid rgba(255,255,255,0.28); border-radius: 6px; background: var(--surface); box-shadow: var(--shadow-lg); }
+    .modal-img { height: 310px; border-radius: 6px 6px 0 0; background: var(--sage-pale); }
+    .modal-body { padding: 2rem 2.4rem 2.5rem; }
+    .modal-title { font-family: 'Frank Ruhl Libre', serif; font-size: 2.3rem; font-weight: 900; line-height: 1.1; }
+    .modal-meta { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+    .modal-section { margin-bottom: 2rem; }
+    .modal-section h3 { color: var(--ink); border-bottom: 2px solid var(--tomato); font-family: 'Frank Ruhl Libre', serif; font-size: 1.35rem; }
+    .qty-controls { gap: 0.4rem; }
+    .qty-btn { border: 1px solid var(--line); border-radius: 3px; background: var(--surface); }
+    .qty-btn:hover { border-color: var(--tomato); color: var(--tomato-dark); background: #fff6f3; }
+    .qty-btn.active { background: var(--ink); border-color: var(--ink); }
+    .qty-current { border-radius: 3px; background: var(--sage-pale); color: var(--sage); }
+    .ingredients-list li { border-bottom-color: var(--line); }
+    .ingredients-list li:not(.ing-subtitle):hover { border-radius: 3px; background: #f3eee5; }
+    .ingredients-list .ing-subtitle {
+      display: block;
+      margin-top: 0.8rem;
+      padding: 0.45rem 0.65rem !important;
+      border: 0 !important;
+      border-right: 3px solid var(--mustard) !important;
+      border-radius: 0;
+      background: #f6edda;
+      color: var(--ink);
+      font-weight: 800;
+    }
+    .ing-amount { color: var(--sage); }
+    .steps-list li::before { border-radius: 3px; background: var(--tomato); }
+    .modal-close { top: 1.25rem; right: 1.25rem; width: 44px; height: 44px; border-radius: 4px; background: var(--surface); color: var(--ink); }
+    .modal-close:hover { background: #f8e1dc; transform: none; }
+    .drag-handle { background: var(--line); }
+    .share-section { border-top-color: var(--line); }
+    .share-label { color: var(--ink-soft); letter-spacing: 0; }
+    .share-btn { min-height: 40px; border-radius: 4px; }
+    .share-btn.email, .share-btn.print, .share-btn.copy { background: #f2eee6; border-color: var(--line); color: var(--ink); }
+
+    footer {
+      margin-top: 0;
+      padding: 2.3rem 2rem;
+      border-top: 5px solid var(--tomato);
+      background: var(--ink);
+      color: rgba(255,255,255,0.65);
+    }
+    footer strong { color: white; font-family: 'Frank Ruhl Libre', serif; font-size: 1.05rem; }
+    .footer-mark { color: var(--mustard); }
+
+    body, button, input, textarea, select,
+    .site-name, .hero h1, .grid-header h2, .card-title,
+    .modal-title, .modal-section h3, footer strong {
+      font-family: 'Assistant', sans-serif;
+    }
+
+    @media (max-width: 760px) {
+      header { padding: 0 1rem; }
+      .header-inner { height: 72px; }
+      .logo-icon { width: 42px; height: 42px; box-shadow: 3px 3px 0 var(--mustard); }
+      .logo-icon svg { width: 29px; height: 29px; }
+      .site-name { font-size: 1.2rem; }
+      .site-tagline { display: none; }
+      .btn-add { min-height: 40px; padding: 0.55rem 0.85rem; }
+      .hero { min-height: 215px; padding: 2.5rem 1rem 2.3rem; }
+      .hero h1 { font-size: clamp(2.5rem, 14vw, 3.7rem); }
+      .hero p { font-size: 0.95rem; }
+      .filters-section { top: 72px; padding: 0.8rem 1rem; }
+      .filters-toggle { color: var(--ink); padding: 0.2rem 0; }
+      .filters-collapsible { padding-top: 0.8rem; gap: 0.6rem; }
+      .filter-chips { flex-wrap: nowrap; width: 100%; overflow-x: auto; padding-bottom: 0.35rem; scrollbar-width: thin; }
+      .chip { flex: 0 0 auto; }
+      .search-box { min-width: 100%; }
+      .main { margin: 1.8rem auto 3rem; padding: 0 1rem; }
+      .grid-header h2 { font-size: 1.6rem; }
+      .recipes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+      .card-img { height: 145px; }
+      .card-body { padding: 0.75rem; }
+      .card-tags { min-height: 21px; overflow: hidden; flex-wrap: nowrap; }
+      .tag { flex: 0 0 auto; }
+      .card-title { font-size: 1.08rem; }
+      .card-meta { gap: 0.5rem; flex-wrap: wrap; }
+      .modal-overlay { padding: 0; }
+      .modal { border-radius: 6px 6px 0 0; }
+      .modal-img { height: 210px; border-radius: 6px 6px 0 0; }
+      .modal-body { padding: 1.3rem 1rem 2rem; }
+      .modal-title { font-size: 1.75rem; }
+      .modal-close { top: 0.8rem; right: 0.8rem; }
+    }
+
+    @media (max-width: 420px) {
+      .site-logo { gap: 0.6rem; }
+      .site-name { font-size: 1.05rem; }
+      .btn-add span { display: none; }
+      .btn-add { width: 42px; justify-content: center; padding: 0; }
+      .recipes-grid { grid-template-columns: 1fr; }
+      .card-img { height: 210px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    @media print {
+      header, .hero, .filters-section, .main, footer, .modal-close, .share-section, .drag-handle { display: none !important; }
+      .modal-overlay { position: static; display: block !important; padding: 0; background: white; }
+      .modal { max-height: none; box-shadow: none; border: 0; overflow: visible; }
+      .modal-img { height: 220px; }
+    }
+  </style>
 </head>
 <body>
 
 <!-- ── HEADER ── -->
 <header>
   <div class="header-inner">
-    <div class="site-logo">
-      <div class="logo-icon">🍳</div>
+    <a class="site-logo" href="#" aria-label="צריקרים במטבח - דף הבית">
+      <div class="logo-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="22" cy="24" r="13" stroke="currentColor" stroke-width="3"/>
+          <circle cx="22" cy="24" r="7" stroke="currentColor" stroke-width="2" opacity=".72"/>
+          <path d="M36 9v13M32.5 9v7.5c0 2 1.6 3.5 3.5 3.5s3.5-1.5 3.5-3.5V9M36 20v19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M8 37c5.2-3 9.8-3 14 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div>
         <div class="site-name">צריקרים במטבח</div>
-        <div class="site-tagline">מסורת בכל מנה</div>
+        <div class="site-tagline">ספר המתכונים המשפחתי</div>
       </div>
-    </div>
+    </a>
     <a id="add-recipe-btn" href="#" target="_blank" class="btn-add">
-      ✦ הוסף
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      <span>הוספת מתכון</span>
     </a>
   </div>
 </header>
 
 <!-- ── HERO ── -->
 <div class="hero">
-  <h1>צריקרים במטבח 🍽️</h1>
-  <p>אוסף המתכונים שלנו</p>
+  <div class="hero-inner">
+    <div class="hero-kicker">מהמטבח שלנו, באהבה</div>
+    <h1>צריקרים במטבח</h1>
+    <p>הטעמים, הסיפורים והמתכונים שעוברים אצלנו במשפחה</p>
+  </div>
 </div>
 
 <!-- ── FILTERS ── -->
 <div class="filters-section">
   <div class="filters-inner">
-    <button class="filters-toggle" id="filters-toggle" onclick="toggleFilters()">
-      <span>🔽 סינון וחיפוש</span>
+    <button class="filters-toggle" id="filters-toggle" aria-expanded="false" aria-controls="filters-collapsible" onclick="toggleFilters()">
+      <span>סינון וחיפוש</span>
       <span class="toggle-arrow">▼</span>
     </button>
     <div class="filters-collapsible" id="filters-collapsible">
@@ -725,8 +1064,8 @@
         <button class="chip" data-filter="ילדים">👶 ילדים</button>
       </div>
       <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="search-input" placeholder="חיפוש מתכון..." />
+        <span class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span>
+        <input type="search" id="search-input" aria-label="חיפוש מתכון" placeholder="חיפוש מתכון..." />
       </div>
     </div>
   </div>
@@ -752,8 +1091,8 @@
 </main>
 
 <!-- ── RECIPE MODAL ── -->
-<div class="modal-overlay" id="modal" style="display:none" onclick="closeModal(event)">
-  <button class="modal-close" onclick="closeModalBtn()">✕</button>
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none" onclick="closeModal(event)">
+  <button class="modal-close" aria-label="סגירת המתכון" onclick="closeModalBtn()">✕</button>
   <div class="modal" id="modal-content">
     <div class="drag-handle" id="drag-handle"></div>
     <div class="modal-img-wrap">
@@ -814,7 +1153,7 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <strong>צריקרים במטבח</strong> &nbsp;|&nbsp; כל הזכויות שמורות למשפחה 🍳
+  <strong>צריקרים במטבח</strong> &nbsp;<span class="footer-mark">•</span>&nbsp; ספר המתכונים של המשפחה
 </footer>
 
 <script>
@@ -931,6 +1270,12 @@
     grid.innerHTML = filtered.map((r, i) => cardHTML(r, i)).join('');
     grid.querySelectorAll('.recipe-card').forEach((el, i) => {
       el.addEventListener('click', () => openModal(filtered[i]));
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(filtered[i]);
+        }
+      });
       el.style.animationDelay = `${i * 0.05}s`;
     });
   }
@@ -939,7 +1284,7 @@
     const tags = (r[COLS.tags]||'').split('|').filter(Boolean);
     const imgHTML = r[COLS.image] ? `<img src="${r[COLS.image]}" alt="${r[COLS.name]}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=placeholder>🍽️</span>'" />` : `<span class="placeholder">${categoryEmoji(r[COLS.category])}</span>`;
     return `
-      <div class="recipe-card">
+      <article class="recipe-card" role="button" tabindex="0" aria-label="פתיחת המתכון ${r[COLS.name]}">
         <div class="card-img">${imgHTML}</div>
         <div class="card-body">
           <div class="card-tags">
@@ -952,7 +1297,7 @@
             ${r[COLS.difficulty] ? `<span>📊 ${r[COLS.difficulty]}</span>` : ''}
           </div>
         </div>
-      </div>`;
+      </article>`;
   }
 
   // ── Modal ──
@@ -1179,6 +1524,7 @@
     const panel = document.getElementById('filters-collapsible');
     const isOpen = panel.classList.toggle('open');
     btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
   }
 
   // ── Filters ──
